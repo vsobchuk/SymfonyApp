@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Photo;
 use App\Entity\User;
+use App\Likes\Like;
 use App\Likes\LikeRepository;
 use App\Repository\PhotoRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,10 +20,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route("/", name: 'home')]
-    public function index(Request $request, EntityManagerInterface $em, ManagerRegistry $managerRegistry): Response
-    {
-        $photoRepository = new PhotoRepository($managerRegistry);
-        $likeRepository = new LikeRepository($managerRegistry);
+    public function index(
+        Request $request,
+        EntityManagerInterface $em,
+        ManagerRegistry $managerRegistry
+    ): Response {
+        $photoRepository = $em->getRepository(Photo::class);
+        $likeRepository = $em->getRepository(Like::class);
 
         $photos = $photoRepository->findAllWithUsers();
 
