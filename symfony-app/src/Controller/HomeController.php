@@ -17,10 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    /**
-     * @Route("/", name="home")
-     * @return JsonResponse
-     */
+    #[Route("/", name: 'home')]
     public function index(Request $request, EntityManagerInterface $em, ManagerRegistry $managerRegistry): Response
     {
         $photoRepository = new PhotoRepository($managerRegistry);
