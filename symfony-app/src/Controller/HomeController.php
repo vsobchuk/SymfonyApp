@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Like;
 use App\Entity\Photo;
 use App\Entity\User;
-use App\Likes\Like;
-use App\Likes\LikeRepository;
-use App\Repository\PhotoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

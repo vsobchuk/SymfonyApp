@@ -8,5 +8,6 @@
 - jeden tekst dla wszystkich błędów, żeby uniemożliwić brutteforce loginu
 - nie ufać user-inputu i nie klaść go do schowka sesji, używać znaczeń z BD natomiast
 - nie używać ManagerRegistry w HomeController
+- wszystko związane z Like jest odpowiednie do reszty projektu
 
 ### To do
