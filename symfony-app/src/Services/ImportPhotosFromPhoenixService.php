@@ -9,19 +9,22 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ImportPhotosFromPhoenixService
 {
-    //@todo this should go to the configuration - different env may have different URLs
-    protected string $photosProviderUrl = 'http://phoenix:4000/api/photos';
-
     public function __construct(
         private HttpClientInterface $httpClient,
         private PhotoRepository $photoRepository
     ) {}
 
+    public function getPhotosProviderUrl(): string
+    {
+        //@todo this should go to the .env configuration - different env may have different URLs
+        return 'http://phoenix:4000/api/photos';
+    }
+
     public function doImport(User $user): int
     {
         $response = $this->httpClient->request(
             'GET',
-            $this->photosProviderUrl,
+            $this->getPhotosProviderUrl(),
             ['headers' => ['access-token' => $user->getImportPhotosToken()]]
         );
 

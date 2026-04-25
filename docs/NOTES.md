@@ -15,6 +15,9 @@
 ## Token powinien zostać zapisany w bazie danych
 - zakładamy że jeden user może mieć tylko jeden token. Robimy nową kolumnę w tabeli usera. 
 - Jeżeli założyć że jedyn user może mieć dwa i więcej tokenów, warto byłoby zrobić osobną tablicę
+## Import zdjęć
+- Będą importowane tylko nowe zdjęcią
+- Będzie pokazywany komunikat o ilości importowanych zdjęć
 
 
 ### To do
@@ -22,3 +25,4 @@
 - Linki Like Photo - musi być POST request
 - stworzyć Application Testy
 - zabrać część logiki z dislikePhoto do LikeService, zrobić metod toggleLike
+- rate limiter: https://dev.to/mnishiguchi/rate-limiter-for-phoenix-app-3j2n#:~:text=2.0%22%7D%20%5D%20end-,Implement%20a%20plug,to_list()%20%7C%3E%20Enum.
