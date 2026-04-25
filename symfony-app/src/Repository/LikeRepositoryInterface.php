@@ -8,11 +8,11 @@ use App\Entity\Photo;
 
 interface LikeRepositoryInterface
 {
-    public function unlikePhoto(Photo $photo): void;
+    public function dislikePhoto(Photo $photo): void;
 
     public function hasUserLikedPhoto(Photo $photo): bool;
 
     public function createLike(Photo $photo): Like;
 
-    public function updatePhotoCounter(Photo $photo, int $increment): void;
+    public function updateLikeCounter(Photo $photo, int $increment): void;
 }

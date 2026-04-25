@@ -25,7 +25,7 @@ final class LikeRepository extends ServiceEntityRepository implements LikeReposi
     }
 
     #[\Override]
-    public function unlikePhoto(Photo $photo): void
+    public function dislikePhoto(Photo $photo): void
     {
         $em = $this->getEntityManager();
 
@@ -81,7 +81,7 @@ final class LikeRepository extends ServiceEntityRepository implements LikeReposi
     }
 
     #[\Override]
-    public function updatePhotoCounter(Photo $photo, int $increment): void
+    public function updateLikeCounter(Photo $photo, int $increment): void
     {
         $em = $this->getEntityManager();
         $photo->setLikeCounter($photo->getLikeCounter() + $increment);

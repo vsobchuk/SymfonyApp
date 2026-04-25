@@ -26,6 +26,10 @@ docker compose exec phoenix mix run priv/repo/seeds.exs
 Dostęp do aplikacji:
 - Symfony App: http://localhost:8000
 - Phoenix API: http://localhost:4000
+```bash
+curl --location 'http://localhost:4000/api/photos' --header 'access-token: test_token_user1_abc123'
+```
+
 
 ## Komendy Symfony
 

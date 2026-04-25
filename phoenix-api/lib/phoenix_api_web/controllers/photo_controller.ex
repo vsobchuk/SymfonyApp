@@ -13,7 +13,21 @@ defmodule PhoenixApiWeb.PhotoController do
     photos =
       Photo
       |> where([p], p.user_id == ^current_user.id)
-      |> select([p], %{id: p.id, photo_url: p.photo_url})
+      |> select([p], %{
+        id: p.id,
+        photo_url: p.photo_url,
+        camera: p.camera,
+        lens: p.lens,
+        settings: p.settings,
+        description: p.description,
+        location: p.location,
+        focal_length: p.focal_length,
+        aperture: p.aperture,
+        shutter_speed: p.shutter_speed,
+        iso: p.iso,
+        taken_at: p.taken_at,
+        user_id: p.user_id
+      })
       |> Repo.all()
 
     json(conn, %{photos: photos})

@@ -20,7 +20,7 @@ class LikeServiceTest extends TestCase
         $this->photo = new Photo();
     }
 
-    public function testExecuteSucces()
+    public function testLikePhotoSucces()
     {
         $this->likeRepository
             ->expects(self::once())
@@ -29,12 +29,12 @@ class LikeServiceTest extends TestCase
 
         $this->likeRepository
             ->expects(self::once())
-            ->method('updatePhotoCounter')
+            ->method('updateLikeCounter')
             ->with($this->photo, 1);
 
-        $this->service->execute($this->photo);
+        $this->service->likePhoto($this->photo);
     }
-    public function testExecuteFails()
+    public function testLikePhotoFails()
     {
 
         $this->likeRepository
@@ -44,12 +44,12 @@ class LikeServiceTest extends TestCase
 
         $this->likeRepository
             ->expects(self::once())
-            ->method('updatePhotoCounter')
+            ->method('updateLikeCounter')
             ->with($this->photo, 1)
             ->willThrowException(new \Exception('Something went wrong'));
 
         try {
-            $this->service->execute($this->photo);
+            $this->service->likePhoto($this->photo);
         } catch (\Exception $e) {
             self::assertEquals('Something went wrong while liking the photo', $e->getMessage());
         }
