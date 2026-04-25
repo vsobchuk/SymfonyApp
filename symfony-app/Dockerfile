@@ -1,4 +1,4 @@
-FROM php:8.1-cli as base
+FROM php:8.4-cli as base
 FROM base as dev
 
 RUN apt-get update && apt-get install -y git unzip libpq-dev libxml2-dev \

@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Like;
 use App\Entity\Photo;
 use App\Entity\User;
-use App\Likes\LikeRepository;
-use App\Likes\LikeService;
+use App\Services\LikeService;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +17,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class PhotoController extends AbstractController
 {
     #[Route('/photo/{id}/like', name: 'photo_like')]
-    public function like($id, Request $request, EntityManagerInterface $em, ManagerRegistry $managerRegistry): Response
+    public function like($id, Request $request, EntityManagerInterface $em): Response
     {
-        $likeRepository = new LikeRepository($managerRegistry);
+        $likeRepository = $em->getRepository(Like::class);
         $likeService = new LikeService($likeRepository);
 
         $session = $request->getSession();
