@@ -48,7 +48,15 @@ class ProfileController extends AbstractController
         $requestImportPhotosForm = $this->createForm(UserImportPhotosForm::class);
         $requestImportPhotosForm->handleRequest($request);
         if ($requestImportPhotosForm->isSubmitted()) {
-            $importPhotosService->doImport($user);
+            try {
+                $numberOfImagesImported = $importPhotosService->doImport($user);
+                $numberOfImagesImported === 0
+                    ? $message = "There are no new images to import!"
+                    : $message = $numberOfImagesImported . " images imported!";
+                $this->addFlash('success', $message);
+            } catch (\Exception $e) {
+                $this->addFlash('error', $e->getMessage());
+            }
         }
 
         return $this->render('profile/index.html.twig', [

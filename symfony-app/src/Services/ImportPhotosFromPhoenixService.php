@@ -17,7 +17,7 @@ class ImportPhotosFromPhoenixService
         private PhotoRepository $photoRepository
     ) {}
 
-    public function doImport(User $user): void
+    public function doImport(User $user): int
     {
         $response = $this->httpClient->request(
             'GET',
@@ -35,7 +35,6 @@ class ImportPhotosFromPhoenixService
         foreach ($existingPhotos as $existingPhoto) {
             unset($response[$existingPhoto->getImageUrl()]);
         }
-        //@todo if there are no new images to import, stop and show user message
 
         $photos = [];
         foreach ($response as $photoData) {
@@ -51,6 +50,9 @@ class ImportPhotosFromPhoenixService
         }
         if (!empty($photos)) {
             $this->photoRepository->saveMany($photos);
+            return count($photos);
         }
+
+        return 0;
     }
 }
