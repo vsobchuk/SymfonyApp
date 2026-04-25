@@ -113,10 +113,27 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
+
+        .back-button-red {
+            background: linear-gradient(135deg, #ea6666 0%, #a24b7f 100%);
+            border: none;
+        }
         
         .back-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        form > div {
+            display: inline;
+        }
+
+        form > input {
+            margin-top: 30px;
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            width: 25em;
         }
         
         .profile-stats {
@@ -165,6 +182,16 @@
         </div>
         
         <div class="profile-details">
+            <div class="profile-field">
+                <div class="profile-field-label">Token to import photos</div>
+                <div class="profile-field-value">
+                    {{ form_start(importPhotosTokenFrom) }}
+                        {{ form_widget(importPhotosTokenFrom.importPhotosToken) }}
+                        {{ form_row(importPhotosTokenFrom.save, {'attr': {'class': 'back-button back-button-red'}}) }}
+                    {{ form_end(importPhotosTokenFrom) }}
+                </div>
+            </div>
+
             <div class="profile-field">
                 <div class="profile-field-label">Email</div>
                 <div class="profile-field-value">{{ user.email }}</div>

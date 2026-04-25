@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
 class User
 {
@@ -37,6 +38,9 @@ class User
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Photo::class, cascade: ['persist', 'remove'])]
     private Collection $photos;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $importPhotosToken = null;
 
     public function __construct()
     {
@@ -139,6 +143,18 @@ class User
                 $photo->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImportPhotosToken(): ?string
+    {
+        return $this->importPhotosToken;
+    }
+
+    public function setImportPhotosToken(?string $importPhotosToken): static
+    {
+        $this->importPhotosToken = $importPhotosToken;
 
         return $this;
     }
