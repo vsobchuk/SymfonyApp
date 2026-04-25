@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\Type\UserType;
-use App\Form\Type\UserTypeImportPhotosToken;
-use App\Services\UserImportPhotosTokenService;
+use App\Form\Type\UserImportPhotosForm;
+use App\Form\Type\UserTypeImportPhotosTokenForm;
+use App\Services\ImportPhotosFromPhoenixService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -21,7 +21,8 @@ class ProfileController extends AbstractController
     #[Route('/profile', name: 'profile', methods: ['GET', 'POST'])]
     public function profile(
         Request $request,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        ImportPhotosFromPhoenixService $importPhotosService
     ): Response {
         $session = $request->getSession();
         $userId = $session->get('user_id');
@@ -38,15 +39,22 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        $importPhotosTokenFrom = $this->createForm(UserTypeImportPhotosToken::class, $user);
+        $importPhotosTokenFrom = $this->createForm(UserTypeImportPhotosTokenForm::class, $user);
         $importPhotosTokenFrom->handleRequest($request);
         if ($importPhotosTokenFrom->isSubmitted()) {
             $userRepository->save($user);
         }
 
+        $requestImportPhotosForm = $this->createForm(UserImportPhotosForm::class);
+        $requestImportPhotosForm->handleRequest($request);
+        if ($requestImportPhotosForm->isSubmitted()) {
+            $importPhotosService->doImport($user);
+        }
+
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'importPhotosTokenFrom' => $importPhotosTokenFrom,
+            'requestImportPhotosForm' => $requestImportPhotosForm,
         ]);
     }
 }

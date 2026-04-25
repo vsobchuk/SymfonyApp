@@ -9,14 +9,16 @@
 - nie ufać user-inputu i nie klaść go do schowka sesji, używać znaczeń z BD natomiast
 - nie używać ManagerRegistry w HomeController
 - wszystko związane z Like jest odpowiednie do reszty projektu + Unit Test dla serwisu
+- imiona funkcji dislikePhoto i likePhoto, logika
 
 # Zadanie 2
 ## Token powinien zostać zapisany w bazie danych
 - zakładamy że jeden user może mieć tylko jeden token. Robimy nową kolumnę w tabeli usera. 
 - Jeżeli założyć że jedyn user może mieć dwa i więcej tokenów, warto byłoby zrobić osobną tablicę
 
+
 ### To do
 - Login za pomocą login + password, przes formę + CSRF
 - Linki Like Photo - musi być POST request
 - stworzyć Application Testy
-
+- zabrać część logiki z dislikePhoto do LikeService, zrobić metod toggleLike

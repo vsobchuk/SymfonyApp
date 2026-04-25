@@ -116,12 +116,15 @@
 
         .back-button-red {
             background: linear-gradient(135deg, #ea6666 0%, #a24b7f 100%);
-            border: none;
         }
         
         .back-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        form {
+            display: inline-block;
         }
 
         form > div {
@@ -132,8 +135,15 @@
             margin-top: 30px;
             padding: 12px 30px;
             border-radius: 25px;
-            border: none;
             width: 25em;
+        }
+
+        form input, form button {
+            border: none;
+        }
+
+        .import-form {
+            float: right;
         }
         
         .profile-stats {
@@ -185,10 +195,14 @@
             <div class="profile-field">
                 <div class="profile-field-label">Token to import photos</div>
                 <div class="profile-field-value">
-                    {{ form_start(importPhotosTokenFrom) }}
+                    {{ form_start(importPhotosTokenFrom, {'attr': {'class': 'token-form'}}) }}
                         {{ form_widget(importPhotosTokenFrom.importPhotosToken) }}
-                        {{ form_row(importPhotosTokenFrom.save, {'attr': {'class': 'back-button back-button-red'}}) }}
+                        {{ form_row(importPhotosTokenFrom.save, {'attr': {'class': 'back-button'}}) }}
                     {{ form_end(importPhotosTokenFrom) }}
+
+                    {{ form_start(requestImportPhotosForm, {'attr': {'class': 'import-form'}}) }}
+                        {{ form_row(requestImportPhotosForm.requestImport, {'attr': {'class': 'back-button back-button-red'}}) }}
+                    {{ form_end(requestImportPhotosForm) }}
                 </div>
             </div>
 

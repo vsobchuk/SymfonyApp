@@ -40,10 +40,10 @@ class PhotoController extends AbstractController
         }
 
         if ($likeRepository->hasUserLikedPhoto($photo)) {
-            $likeRepository->unlikePhoto($photo);
+            $likeRepository->dislikePhoto($photo);
             $this->addFlash('info', 'Photo unliked!');
         } else {
-            $likeService->execute($photo);
+            $likeService->likePhoto($photo);
             $this->addFlash('success', 'Photo liked!');
         }
 
