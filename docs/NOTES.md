@@ -1,3 +1,9 @@
+# Ogolne notatki
+- Wsiędzie gdzie używane są repozytoria, warto używać interfejsów jako type-hinta, nie robiłem togo dla ekonomiji czasu
+- Ogólne zasady testów jednostkowych:
+- - testowany musi być każdy publiczny metod serwisu oraz serwis nie musi mieć dostępu do zewnętrznych zależności (Baza danych / API / inne serwisy).
+- - reposytoriumy mogą być testowanę, jeżeli posiadają logikę
+
 # Zadanie 1
 
 ## Update Symfony version
@@ -13,14 +19,20 @@
 
 # Zadanie 2
 ## Token powinien zostać zapisany w bazie danych
-- zakładamy że jeden user może mieć tylko jeden token. Robimy nową kolumnę w tabeli usera. 
-- Jeżeli założyć że jedyn user może mieć dwa i więcej tokenów, warto byłoby zrobić osobną tablicę
+- zakładamy, że jeden user może mieć tylko jeden token. Robimy nową kolumnę w tabeli usera. 
+- Jeżeli założyć, że jedyn user może mieć dwa i więcej tokenów, warto byłoby zrobić osobną tablicę
 ## Import zdjęć
 - Będą importowane tylko nowe zdjęcią
 - Będzie pokazywany komunikat o ilości importowanych zdjęć
 
+# Zadanie 3
+- Filtr po polu username - chyba chodzi o opach name oraz last_name z tablicy users. Te dane są widoczne dla użytkownika na stronie domowej i właśnie ich on będzie szukac
+- W prawdziwym projekcie trzeba by zrobić indeksację kolumn tablic, po jakich odbywa się filtracja, albo użyć ElasticSearch dla szukania tekstu
+- Filtrowanie po taken_at wygląda jak standardowy input typu date browsera, oczywiście trzeba bylo by dla pięknoty zasosować jakoogoś pluginu albo więcej czasu spędzić na robienie CSS+ JS
 
-### To do
+### lista To Do niestety nie jest pusta, 3 zadania zrobione, przechodzę do 4, na niego chyba strace dużo czasu :/
+
+### To Do
 - Login za pomocą login + password, przes formę + CSRF
 - Linki Like Photo - musi być POST request
 - stworzyć Application Testy

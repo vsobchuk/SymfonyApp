@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Like;
-use App\Entity\Photo;
 use App\Entity\User;
+use App\Services\PhotosSearchService;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,13 +18,13 @@ class HomeController extends AbstractController
     #[Route("/", name: 'home')]
     public function index(
         Request $request,
+        PhotosSearchService $photosSearchService,
         EntityManagerInterface $em,
-        ManagerRegistry $managerRegistry
     ): Response {
-        $photoRepository = $em->getRepository(Photo::class);
         $likeRepository = $em->getRepository(Like::class);
 
-        $photos = $photoRepository->findAllWithUsers();
+        $photosFilters = PhotosSearchService::buildFilters($request);
+        $photos = $photosSearchService->getFilteredPhotos($photosFilters);
 
         $session = $request->getSession();
         $userId = $session->get('user_id');
@@ -47,6 +46,7 @@ class HomeController extends AbstractController
             'photos' => $photos,
             'currentUser' => $currentUser,
             'userLikes' => $userLikes,
+            'photosFilters' => $photosFilters
         ]);
     }
 }

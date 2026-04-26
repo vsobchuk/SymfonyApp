@@ -100,6 +100,7 @@ class ImportPhotosFromPhoenixServiceTest extends TestCase
     {
         $httpResponse = $this->createMock(ResponseInterface::class);
         $httpResponse->method('getContent')->willReturn($content);
+        $httpResponse->method('getStatusCode')->willReturn(200);
 
         $this->httpClient
             ->method('request')

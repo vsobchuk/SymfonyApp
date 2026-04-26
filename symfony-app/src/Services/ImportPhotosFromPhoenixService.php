@@ -27,6 +27,9 @@ class ImportPhotosFromPhoenixService
             $this->getPhotosProviderUrl(),
             ['headers' => ['access-token' => $user->getImportPhotosToken()]]
         );
+        if ($response->getStatusCode() !== 200) {
+            throw new \Exception('Failed to fetch photos from Phoenix');
+        }
 
         $response = json_decode($response->getContent(), true);
         if (empty($response['photos'])) {
