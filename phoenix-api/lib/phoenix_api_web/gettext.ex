@@ -1,4 +1,5 @@
 defmodule PhoenixApiWeb.Gettext do
-  @moduledoc false
+#  @moduledoc false
+#  use Gettext.Backend, otp_app: :phoenix_api
   use Gettext.Backend, otp_app: :phoenix_api
 end
