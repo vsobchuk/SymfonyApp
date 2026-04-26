@@ -149,10 +149,100 @@
             font-size: 2em;
             margin-bottom: 10px;
         }
+
+        .filter-bar {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: flex-end;
+            margin: 30px auto 0;
+            max-width: 1200px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .filter-group label {
+            color: white;
+            font-weight: 600;
+        }
+
+        .filter-group input {
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-filter {
+            padding: 10px 22px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-filter-apply {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-filter-clear {
+            background: white;
+            color: #667eea;
+        }
     </style>
 {% endblock %}
 
 {% block body %}
+    <form method="get" action="{{ path('home') }}" class="filter-bar">
+        <div class="filter-group">
+            <label for="filter-camera">Camera</label>
+            <input type="text" id="filter-camera" name="camera" placeholder="e.g. Canon, Nikon…" value="{{ photosFilters.camera }}">
+        </div>
+        <div class="filter-group">
+            <label for="filter-description">Description</label>
+            <input type="text" id="filter-description" name="description" placeholder="Search description…" value="{{ photosFilters.description }}">
+        </div>
+        <div class="filter-group">
+            <label for="filter-location">Location</label>
+            <input type="text" id="filter-location" name="location" placeholder="e.g. Paris, Tokyo…" value="{{ photosFilters.location }}">
+        </div>
+        <div class="filter-group">
+            <label for="filter-username">Username</label>
+            <input type="text" id="filter-username" name="username" placeholder="e.g. john_doe" value="{{ photosFilters.username }}">
+        </div>
+
+        <div class="filter-group">
+            <label for="filter-taken-from">Taken from</label>
+            <input type="date" id="filter-taken-from" name="taken_from" value="{{ photosFilters.taken_from }}">
+        </div>
+        <div class="filter-group">
+            <label for="filter-taken-to">Taken to</label>
+            <input type="date" id="filter-taken-to" name="taken_to" value="{{ photosFilters.taken_to }}">
+        </div>
+
+        <div class="filter-actions">
+            <button type="submit" class="btn-filter btn-filter-apply">Filter</button>
+            {% if photosFilters %}
+                <a href="{{ path('home') }}" class="btn-filter btn-filter-clear">Clear</a>
+            {% endif %}
+        </div>
+    </form>
+
     {% if photos|length > 0 %}
         <div class="photo-grid">
             {% for photo in photos %}
