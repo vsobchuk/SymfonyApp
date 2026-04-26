@@ -27,6 +27,9 @@ class ImportPhotosFromPhoenixService
             $this->getPhotosProviderUrl(),
             ['headers' => ['access-token' => $user->getImportPhotosToken()]]
         );
+        if ($response->getStatusCode() === 403) {
+            throw new \Exception('Too many tries, take a rest for a while :)');
+        }
         if ($response->getStatusCode() !== 200) {
             throw new \Exception('Failed to fetch photos from Phoenix');
         }
